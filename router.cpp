@@ -10,7 +10,7 @@ class Router
   private:
     int rows;
     int cols;
-    GridPoint *grid;
+    GridPoint **grid;
     void resetGrid();
 };
 
@@ -18,28 +18,34 @@ Router::Router(int r, int c)
 {
   rows = r;
   cols = c;
-  grid = new GridPoint[rows, cols];
+
+  //initialize the grid
+  grid = new GridPoint*[rows];
+  int i;
+  for (i = 0; i < cols; i++) {
+    grid[i] = new GridPoint[cols];
+  }
 }
 
 void Router::Info(){
   cout << "INFO:" << endl;
   cout << "Rows:" << rows << endl
-       << "Cols:" << cols << endl;
+    << "Cols:" << cols << endl;
 }
 
 void Router::DisplayGrid(){
   cout  << "\n\n========================\n" << endl;
+  int i, j;
+  for (i = 0; i < rows; i++) {
+    for (j = 0; j < cols; j++) {
+      cout << setw(5) << grid[i][j].RouteId;
+    }
+    cout << endl;
+  }
   cout  << "\n========================\n\n" << endl;
-    
+
 }
 
 
 void Router::resetGrid(){
-  int i, j;
-  for (i = 0; i < rows; i++) {
-    for (j = 0; j < cols; j++) {
-      cout << "Size of grid:" << grid->size();
-      //cout << setw(5) << *grid[i][j];
-    }
-  }
 }
