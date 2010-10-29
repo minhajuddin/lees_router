@@ -18,5 +18,8 @@ int main(){
   cin >> rows;
   Router *router = new Router(rows, rows);
   router->Info();
+
+  router->DisplayGrid();
+
   return 0;
 }
