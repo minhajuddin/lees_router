@@ -1,5 +1,7 @@
 #include<iostream>
 #include<iomanip>
+#include "coordinate.cpp"
+
 using namespace std;
 class Router
 {
@@ -7,6 +9,7 @@ class Router
     Router(int rows, int cols);
     void Info();
     void DisplayGrid();
+    void Route(Coordinate *source, Coordinate *target);
   private:
     int rows;
     int cols;
@@ -48,4 +51,9 @@ void Router::DisplayGrid(){
 
 
 void Router::resetGrid(){
+}
+
+
+void Router::Route(Coordinate *source, Coordinate *target){
+  cout << "Routing " << source->ToString() << " to " << target->ToString() << endl;
 }
