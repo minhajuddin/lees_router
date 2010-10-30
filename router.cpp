@@ -21,6 +21,7 @@ class Router
     void visit(Coordinate *input, int stepId);
     bool isVisited(Coordinate *input);
     void propagate(Coordinate *source, Coordinate *target);
+    void backtrack(Coordinate *target, Coordinate *source);
 };
 
 Router::Router(int r, int c)
@@ -129,10 +130,14 @@ void Router::propagate(Coordinate *source, Coordinate *target){
 
 }
 
+void Router::backtrack(Coordinate *target, Coordinate *source){
+  cout << "backtracking from " << target->ToString() << " to " << source->ToString();
+}
+
 void Router::Route(Coordinate *source, Coordinate *target){
   //propagate the wave
   propagate(source, target);
-
   //backtrack
+  backtrack(target, source);
   //reset grid
 }
