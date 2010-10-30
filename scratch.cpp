@@ -7,14 +7,11 @@ using namespace std;
 
 int main(){
 
-  Coordinate *points;
-  points = new Coordinate[10];
-
-  //cout << sizeof(points)/ sizeof(Coordinate);
-  cout << sizeof(*points) << '|' << sizeof(Coordinate);
-
-  cout << "|" << points[23].ToString();
-
+  Coordinate *foo;
+  foo = NULL;
+  if(foo == NULL){
+    cout << "is null";
+  }
   cout << endl;
 
 }

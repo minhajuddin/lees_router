@@ -5,9 +5,6 @@
  */
 
 #include<iostream>
-#include "gridpoint.cpp"
-#include "node.cpp"
-#include "queue.cpp"
 #include "router.cpp"
 
 using namespace std;
@@ -30,10 +27,33 @@ int main(){
   cout << "Please enter the target co-ordinates:";
   //cin >> x >> y;
   //HARDCODED_INPUT
-  x = 4; y = 4;
+  x = 1; y = 2;
   Coordinate *target = new Coordinate(x, y);
 
   router->Route(source, target);
+
+  Queue *q = new Queue();
+
+  q->Info();
+
+  q->Add(source);
+
+  q->Info();
+
+  q->Add(target);
+
+  q->Info();
+  
+  cout << "Removed" << q->Remove()->ToString();
+  q->Info();
+  cout << "Removed" << q->Remove()->ToString();
+  q->Info();
+
+  Coordinate *xc = new Coordinate(23, 2323);
+
+  q->Add(xc);
+
+  q->Info();
 
   return 0;
 }

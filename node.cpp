@@ -1,12 +1,14 @@
+#include "coordinate.cpp"
 class Node
 {
   public:
-    Node();
-    GridPoint *Point;
+    Node(Coordinate *input);
+    Coordinate *Point;
     Node *Next;
 };
 
-Node::Node()
+Node::Node(Coordinate *input)
 {
+  this->Point = input;
 }
 
