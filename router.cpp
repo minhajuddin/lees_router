@@ -14,11 +14,13 @@ class Router
   private:
     int rows;
     int cols;
+    int latestRouteId;
     GridPoint **grid;
     Queue *queue;
     GridPoint getGridPointAt(Coordinate *location);
     void resetGrid();
     void visit(Coordinate *input, int stepId);
+    void markRoute(Coordinate *input);
     bool isVisited(Coordinate *input);
     void propagate(Coordinate *source, Coordinate *target);
     void backtrack(Coordinate *target, Coordinate *source);
@@ -70,6 +72,10 @@ void Router::resetGrid(){
 
 bool Router::isVisited(Coordinate *input){
   return input->InBound(rows,cols) && grid[input->x][input->y].IsVisited;
+}
+
+void Router::markRoute(Coordinate *input){
+  grid[input->x][input->y].RouteId = latestRouteId;
 }
 
 void Router::visit(Coordinate *input, int stepId){
@@ -132,12 +138,44 @@ void Router::propagate(Coordinate *source, Coordinate *target){
 
 void Router::backtrack(Coordinate *target, Coordinate *source){
   cout << "backtracking from " << target->ToString() << " to " << source->ToString();
+  Coordinate *current = target;
+  GridPoint currentGridPoint;
+  GridPoint neighborGridPoint;
+  int limit = 0;
+  do{
+    currentGridPoint = getGridPointAt(current);
+    //mark the route id
+    markRoute(current);
+    //find the next node
+
+    Coordinate *neighbors = current->GetNeighbors();
+    int i;
+    //if any of them is the target, stop,
+    for (i = 0; i < 4; i++) {
+      if(!neighbors[i].InBound(rows, cols)){
+        continue;
+      }
+      neighborGridPoint = getGridPointAt(&neighbors[i]);
+
+      if(neighborGridPoint.StepId < currentGridPoint.StepId){
+        current = &neighbors[i];
+        //currentGridPoint = neighborGridPoint;
+        break;
+      }
+    }
+    //repeat until is source reached
+  }while(!current->Equals(source) && limit++ < 100);
+  //mark the source
+  markRoute(source);
 }
 
 void Router::Route(Coordinate *source, Coordinate *target){
+  //increaset the route identifier
+  latestRouteId++;
   //propagate the wave
   propagate(source, target);
   //backtrack
   backtrack(target, source);
+  DisplayGrid();
   //reset grid
 }
