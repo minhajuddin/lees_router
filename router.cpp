@@ -15,6 +15,7 @@ class Router
     int cols;
     GridPoint **grid;
     void resetGrid();
+    void propagate(Coordinate *source, Coordinate *target);
 };
 
 Router::Router(int r, int c)
@@ -31,9 +32,11 @@ Router::Router(int r, int c)
 }
 
 void Router::Info(){
+  cout  << "\n\n========================\n" << endl;
   cout << "INFO:" << endl;
   cout << "Rows:" << rows << endl
     << "Cols:" << cols << endl;
+  cout  << "\n========================\n\n" << endl;
 }
 
 void Router::DisplayGrid(){
@@ -53,7 +56,32 @@ void Router::DisplayGrid(){
 void Router::resetGrid(){
 }
 
+void Router::propagate(Coordinate *source, Coordinate *target){
+  cout << "Propagating" << source->ToString() << " to " << target->ToString() << endl;
+
+  //get neighbors of source
+  Coordinate *neighbors = source->GetNeighbors();
+
+  //int i;
+  ////if any of them is the target, stop,
+  //for (i = 0; i < 4; i++) {
+    //if(Neighbors[i].Equals(target)){
+      //break;
+    //}
+    //queue->Queue(Neighbors[i]);
+  //}
+
+  //else add them to the queue
+  //do the same with the rest of the elements in the queue until the target is
+  //reached
+
+}
 
 void Router::Route(Coordinate *source, Coordinate *target){
   cout << "Routing " << source->ToString() << " to " << target->ToString() << endl;
+  //propagate the wave
+  propagate(source, target);
+
+  //backtrack
+  //reset grid
 }
