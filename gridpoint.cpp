@@ -12,6 +12,7 @@ GridPoint::GridPoint()
 {
   RouteId = 0;
   IsVisited = false;
+  StepId = 0;
 }
 
 void GridPoint::Info(){

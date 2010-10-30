@@ -72,7 +72,7 @@ void Router::resetGrid(){
   for (i = 0; i < rows; i++) {
     for (j = 0; j < cols; j++) {
       grid[i][j].IsVisited = false;
-      grid[i][j].StepId = false;
+      grid[i][j].StepId = 0;
     }
   }
 }
@@ -155,9 +155,8 @@ void Router::backtrack(Coordinate *target, Coordinate *source){
       }
       neighborGridPoint = getGridPointAt(&neighbors[i]);
 
-      if(neighborGridPoint.StepId < currentGridPoint.StepId){
+      if((neighborGridPoint.StepId < currentGridPoint.StepId && neighborGridPoint.StepId != 0) || neighbors[i].Equals(source)){
         current = &neighbors[i];
-        //currentGridPoint = neighborGridPoint;
         break;
       }
     }

@@ -10,10 +10,10 @@
 using namespace std;
 
 int main(){
-  int rows, x, y;
+  int rows, cols, x, y;
   cout << "Please enter the size of the grid:" << endl;
-  cin >> rows;
-  Router *router = new Router(rows, rows);
+  cin >> rows >> cols;
+  Router *router = new Router(rows, cols);
   router->Info();
 
   cout << "Please enter the source co-ordinates:";
