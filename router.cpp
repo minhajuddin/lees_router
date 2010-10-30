@@ -17,6 +17,7 @@ class Router
     GridPoint **grid;
     Queue *queue;
     void resetGrid();
+    void visit(Coordinate *input);
     bool isVisited(Coordinate *input);
     void propagate(Coordinate *source, Coordinate *target);
 };
@@ -62,7 +63,11 @@ void Router::resetGrid(){
 }
 
 bool Router::isVisited(Coordinate *input){
-  return 0;
+  return grid[input->x][input->y].IsVisited;
+}
+
+void Router::visit(Coordinate *input){
+  grid[input->x][input->y].IsVisited = true;
 }
 
 void Router::propagate(Coordinate *source, Coordinate *target){
@@ -70,9 +75,16 @@ void Router::propagate(Coordinate *source, Coordinate *target){
 
   int counter = 0;
 
+  queue->Add(source);
+
+  Coordinate *current;
+
   do{
+    //get the next node from queue
+    current = queue->Remove();
+    cout << "\nprocessing: " << current->ToString();
     //get neighbors of source
-    Coordinate *neighbors = source->GetNeighbors();
+    Coordinate *neighbors = current->GetNeighbors();
 
     int i;
     //if any of them is the target, stop,
@@ -81,12 +93,12 @@ void Router::propagate(Coordinate *source, Coordinate *target){
         break;
       }
 
-      cout << "Is Visisted " << isVisited(&neighbors[i]);
       //add it to the queue if 
       //it is not out of bounds
       //it is not visited
       if(neighbors[i].InBound(rows, cols) && isVisited(&neighbors[i])){
         queue->Add(&neighbors[i]);
+        visit(&neighbors[i]);
       }
     }
   }while(!queue->IsEmpty() && counter++ < 100);
@@ -106,3 +118,5 @@ void Router::Route(Coordinate *source, Coordinate *target){
   //backtrack
   //reset grid
 }
+
+
