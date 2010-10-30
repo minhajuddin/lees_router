@@ -63,17 +63,25 @@ void Router::resetGrid(){
 void Router::propagate(Coordinate *source, Coordinate *target){
   cout << "Propagating" << source->ToString() << " to " << target->ToString() << endl;
 
-  //get neighbors of source
-  Coordinate *neighbors = source->GetNeighbors();
+  int counter = 0;
 
-  int i;
-  //if any of them is the target, stop,
-  for (i = 0; i < 4; i++) {
-    if(neighbors[i].Equals(target)){
-      break;
+  do{
+    //get neighbors of source
+    Coordinate *neighbors = source->GetNeighbors();
+
+    int i;
+    //if any of them is the target, stop,
+    for (i = 0; i < 4; i++) {
+      if(neighbors[i].Equals(target)){
+        break;
+      }
+      //add it to the queue if 
+      //it is not out of bounds
+      if(neighbors[i].InBound(rows, cols)){
+        queue->Add(&neighbors[i]);
+      }
     }
-    queue->Add(&neighbors[i]);
-  }
+  }while(!queue->IsEmpty() && counter++ < 1000);
 
   queue->Info();
 

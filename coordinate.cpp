@@ -11,6 +11,7 @@ class Coordinate
     string ToString();
     Coordinate* GetNeighbors();
     bool Equals(Coordinate* input);
+    bool InBound(int rows,int cols);
 };
 
 Coordinate::Coordinate()
@@ -55,4 +56,8 @@ Coordinate* Coordinate::GetNeighbors(){
 
 bool Coordinate::Equals(Coordinate* input){
   return x == input->x && y == input->y;
+}
+
+bool Coordinate::InBound(int rows,int cols){
+  return y < rows && y >= 0 && x < cols && x >= 0;
 }

@@ -21,7 +21,7 @@ int main(){
   cout << "Please enter the source co-ordinates:";
   //cin >> x >> y;
   //HARDCODED_INPUT
-  x = 2; y = 2;
+  x = 4; y = 4;
   Coordinate *source = new Coordinate(x, y);
 
   cout << "Please enter the target co-ordinates:";
