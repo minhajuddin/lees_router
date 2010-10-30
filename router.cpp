@@ -84,7 +84,6 @@ void Router::propagate(Coordinate *source, Coordinate *target){
 }
 
 void Router::Route(Coordinate *source, Coordinate *target){
-  cout << "Routing " << source->ToString() << " to " << target->ToString() << endl;
   //propagate the wave
   propagate(source, target);
 

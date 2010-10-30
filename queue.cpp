@@ -23,18 +23,15 @@ void Queue::Add(Coordinate *input){
   Node *node = new Node(input);
   //if this is the first node make first and last point to it
   if(size == 0){
-    cout << "adding first node";
     First = node;
     Last = node;
   }
   else{
-    cout << "adding second node";
     //make the last pointers next point to the new node
     Last->Next = node;
     //make the last pointer point to the new node
     Last = node;
-  }
-  size++;
+  } size++;
 }
 
 
@@ -62,7 +59,9 @@ void Queue::Info(){
     << First
     << ":" 
     << First->Point->ToString() 
-    << " ; "  << endl
+    << "; Next:"
+    << First->Next
+    << endl
     << "Last:"
     << Last
     << ":" 
