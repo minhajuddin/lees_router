@@ -54,7 +54,7 @@ void Router::DisplayGrid(){
   int i, j;
   for (i = 0; i < rows; i++) {
     for (j = 0; j < cols; j++) {
-      cout << setw(4) << grid[i][j].RouteId
+      cout << setw(8) << grid[i][j].RouteId
            << ":"
            << grid[i][j].StepId
            << ":"
