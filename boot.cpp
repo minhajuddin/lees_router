@@ -31,6 +31,6 @@ int main(){
   Coordinate *target = new Coordinate(x, y);
 
   router->Route(source, target);
-
+    
   return 0;
 }
