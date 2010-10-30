@@ -17,6 +17,7 @@ class Router
     GridPoint **grid;
     Queue *queue;
     void resetGrid();
+    bool isVisited(Coordinate *input);
     void propagate(Coordinate *source, Coordinate *target);
 };
 
@@ -60,6 +61,10 @@ void Router::DisplayGrid(){
 void Router::resetGrid(){
 }
 
+bool Router::isVisited(Coordinate *input){
+  return 0;
+}
+
 void Router::propagate(Coordinate *source, Coordinate *target){
   cout << "Propagating" << source->ToString() << " to " << target->ToString() << endl;
 
@@ -75,13 +80,16 @@ void Router::propagate(Coordinate *source, Coordinate *target){
       if(neighbors[i].Equals(target)){
         break;
       }
+
+      cout << "Is Visisted " << isVisited(&neighbors[i]);
       //add it to the queue if 
       //it is not out of bounds
-      if(neighbors[i].InBound(rows, cols)){
+      //it is not visited
+      if(neighbors[i].InBound(rows, cols) && isVisited(&neighbors[i])){
         queue->Add(&neighbors[i]);
       }
     }
-  }while(!queue->IsEmpty() && counter++ < 1000);
+  }while(!queue->IsEmpty() && counter++ < 100);
 
   queue->Info();
 

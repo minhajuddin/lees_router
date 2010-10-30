@@ -52,19 +52,24 @@ bool Queue::IsEmpty(){
 
 void Queue::Info(){
   cout  << "\n\n========================" << endl;
-  cout << "Queue " 
-    << "IsEmpty:" << IsEmpty() << endl
-    << "Size:" << size << endl
-    << "First:"
-    << First
-    << ":" 
-    << First->Point->ToString() 
-    << "; Next:"
-    << First->Next
-    << endl
-    << "Last:"
-    << Last
-    << ":" 
-    << Last->Point->ToString();
+  if(IsEmpty()){
+    cout << "Queue is empty";
+  }
+  else{
+    cout << "Queue " 
+      << "IsEmpty:" << IsEmpty() << endl
+      << "Size:" << size << endl
+      << "First:"
+      << First
+      << ":" 
+      << First->Point->ToString() 
+      << "; Next:"
+      << First->Next
+      << endl
+      << "Last:"
+      << Last
+      << ":" 
+      << Last->Point->ToString();
+  }
   cout  << "\n========================\n\n" << endl;
 }
