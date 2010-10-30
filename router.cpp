@@ -105,6 +105,7 @@ void Router::propagate(Coordinate *source, Coordinate *target){
     //if any of them is the target, stop,
     for (i = 0; i < 4; i++) {
       if(neighbors[i].Equals(target)){
+        visit(&neighbors[i], stepId);
         targetFound = true;
         break;
       }
@@ -115,13 +116,12 @@ void Router::propagate(Coordinate *source, Coordinate *target){
       if(neighbors[i].InBound(rows, cols) && !isVisited(&neighbors[i])){
         queue->Add(&neighbors[i]);
         visit(&neighbors[i], stepId);
-        DisplayGrid();
-        queue->Info();
       }
 
     }
   }while(!queue->IsEmpty() && counter++ < 100 && !targetFound);
 
+  DisplayGrid();
 
   //else add them to the queue
   //do the same with the rest of the elements in the queue until the target is
