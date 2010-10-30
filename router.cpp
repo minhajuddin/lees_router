@@ -72,9 +72,10 @@ void Router::propagate(Coordinate *source, Coordinate *target){
     if(neighbors[i].Equals(target)){
       break;
     }
-    cout << "Queueing " << neighbors[i].ToString() << endl;
-    //queue->Add(neighbors[i]);
+    queue->Add(&neighbors[i]);
   }
+
+  queue->Info();
 
   //else add them to the queue
   //do the same with the rest of the elements in the queue until the target is

@@ -32,28 +32,5 @@ int main(){
 
   router->Route(source, target);
 
-  Queue *q = new Queue();
-
-  q->Info();
-
-  q->Add(source);
-
-  q->Info();
-
-  q->Add(target);
-
-  q->Info();
-  
-  cout << "Removed" << q->Remove()->ToString();
-  q->Info();
-  cout << "Removed" << q->Remove()->ToString();
-  q->Info();
-
-  Coordinate *xc = new Coordinate(23, 2323);
-
-  q->Add(xc);
-
-  q->Info();
-
   return 0;
 }
