@@ -16,6 +16,7 @@ class Router
     int cols;
     GridPoint **grid;
     Queue *queue;
+    GridPoint getGridPointAt(Coordinate *location);
     void resetGrid();
     void visit(Coordinate *input, int stepId);
     bool isVisited(Coordinate *input);
@@ -75,6 +76,10 @@ void Router::visit(Coordinate *input, int stepId){
   grid[input->x][input->y].StepId = stepId;
 }
 
+GridPoint Router::getGridPointAt(Coordinate *location){
+  return grid[location->x][location->y];
+}
+
 void Router::propagate(Coordinate *source, Coordinate *target){
   cout << "Propagating" << source->ToString() << " to " << target->ToString() << endl;
 
@@ -84,11 +89,14 @@ void Router::propagate(Coordinate *source, Coordinate *target){
   queue->Add(source);
   visit(source, stepId);
   Coordinate *current;
+  GridPoint currentGridPoint;
+  bool targetFound = false;
 
   do{
     //get the next node from queue
-    stepId++;
     current = queue->Remove();
+    currentGridPoint = getGridPointAt(current);
+    stepId = currentGridPoint.StepId + 1;
     cout << "\nprocessing: " << current->ToString();
     //get neighbors of source
     Coordinate *neighbors = current->GetNeighbors();
@@ -97,6 +105,7 @@ void Router::propagate(Coordinate *source, Coordinate *target){
     //if any of them is the target, stop,
     for (i = 0; i < 4; i++) {
       if(neighbors[i].Equals(target)){
+        targetFound = true;
         break;
       }
 
@@ -111,7 +120,7 @@ void Router::propagate(Coordinate *source, Coordinate *target){
       }
 
     }
-  }while(!queue->IsEmpty() && counter++ < 100);
+  }while(!queue->IsEmpty() && counter++ < 100 && !targetFound);
 
 
   //else add them to the queue
@@ -127,5 +136,3 @@ void Router::Route(Coordinate *source, Coordinate *target){
   //backtrack
   //reset grid
 }
-
-
