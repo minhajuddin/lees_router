@@ -68,6 +68,13 @@ void Router::DisplayGrid(){
 
 
 void Router::resetGrid(){
+  int i, j;
+  for (i = 0; i < rows; i++) {
+    for (j = 0; j < cols; j++) {
+      grid[i][j].IsVisited = false;
+      grid[i][j].StepId = false;
+    }
+  }
 }
 
 bool Router::isVisited(Coordinate *input){
@@ -88,10 +95,6 @@ GridPoint Router::getGridPointAt(Coordinate *location){
 }
 
 void Router::propagate(Coordinate *source, Coordinate *target){
-  cout << "Propagating" << source->ToString() << " to " << target->ToString() << endl;
-
-  int counter = 0;
-
   int stepId = 0;
   queue->Add(source);
   visit(source, stepId);
@@ -104,7 +107,6 @@ void Router::propagate(Coordinate *source, Coordinate *target){
     current = queue->Remove();
     currentGridPoint = getGridPointAt(current);
     stepId = currentGridPoint.StepId + 1;
-    cout << "\nprocessing: " << current->ToString();
     //get neighbors of source
     Coordinate *neighbors = current->GetNeighbors();
 
@@ -126,9 +128,7 @@ void Router::propagate(Coordinate *source, Coordinate *target){
       }
 
     }
-  }while(!queue->IsEmpty() && counter++ < 100 && !targetFound);
-
-  DisplayGrid();
+  }while(!queue->IsEmpty() && !targetFound);
 
   //else add them to the queue
   //do the same with the rest of the elements in the queue until the target is
@@ -137,11 +137,9 @@ void Router::propagate(Coordinate *source, Coordinate *target){
 }
 
 void Router::backtrack(Coordinate *target, Coordinate *source){
-  cout << "backtracking from " << target->ToString() << " to " << source->ToString();
   Coordinate *current = target;
   GridPoint currentGridPoint;
   GridPoint neighborGridPoint;
-  int limit = 0;
   do{
     currentGridPoint = getGridPointAt(current);
     //mark the route id
@@ -164,7 +162,7 @@ void Router::backtrack(Coordinate *target, Coordinate *source){
       }
     }
     //repeat until is source reached
-  }while(!current->Equals(source) && limit++ < 100);
+  }while(!current->Equals(source));
   //mark the source
   markRoute(source);
 }
@@ -174,8 +172,14 @@ void Router::Route(Coordinate *source, Coordinate *target){
   latestRouteId++;
   //propagate the wave
   propagate(source, target);
+  cout << "\n\n Wave Propagation";
+  DisplayGrid();
   //backtrack
   backtrack(target, source);
+  cout << "\n\n Backtracking";
   DisplayGrid();
   //reset grid
+  resetGrid();
+  cout << "\n\n After Reset";
+  DisplayGrid();
 }
