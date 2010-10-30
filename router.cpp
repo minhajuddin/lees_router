@@ -9,7 +9,7 @@ class Router
   public:
     Router(int rows, int cols);
     void Info();
-    void DisplayGrid();
+    void DisplayGrid(int mode);
     void Route(Coordinate *source, Coordinate *target);
   private:
     int rows;
@@ -49,16 +49,21 @@ void Router::Info(){
   cout  << "========================\n" << endl;
 }
 
-void Router::DisplayGrid(){
+void Router::DisplayGrid(int mode){
   cout  << "\n========================" << endl;
   int i, j;
   for (i = 0; i < rows; i++) {
     for (j = 0; j < cols; j++) {
-      cout << setw(8) << grid[i][j].RouteId
-           << ":"
-           << grid[i][j].StepId
-           << ":"
-           << grid[i][j].IsVisited;
+      if(mode == 0){
+        cout << setw(8) << grid[i][j].RouteId
+          << ":"
+          << grid[i][j].StepId
+          << ":"
+          << grid[i][j].IsVisited;
+      }
+      else{
+        cout << setw(8) << grid[i][j].RouteId;
+      }
     }
     cout << endl;
   }
@@ -172,13 +177,16 @@ void Router::Route(Coordinate *source, Coordinate *target){
   //propagate the wave
   propagate(source, target);
   cout << "\n\n Wave Propagation";
-  DisplayGrid();
+  DisplayGrid(0);
   //backtrack
   backtrack(target, source);
   cout << "\n\n Backtracking";
-  DisplayGrid();
+  DisplayGrid(0);
   //reset grid
   resetGrid();
   cout << "\n\n After Reset";
-  DisplayGrid();
+  DisplayGrid(0);
+
+  cout << "With just the path";
+  DisplayGrid(1);
 }
